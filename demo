@@ -1,7 +1,15 @@
-hii
-hv  
-165
-61
-
-
-15
+﻿{
+    "frameworkdatabase": {
+        "host": "localhost",
+        "port": 3306,
+        "user": "root",
+        "password": "naveen123",
+        "database": "helpi_helpers_framework_db"
+    },
+    "moduledatabase": {
+        "host": "localhost",
+        "port": 3306,
+        "user": "root",
+        "password": "naveen123",
+        "database": "helpi_helpers_modules_db"
+    },
