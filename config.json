@@ -3,7 +3,7 @@
         "host": "localhost",
         "port": 3306,
         "user": "root",
-        "password": "naveen123",
+        "password": "naveen1234",
         "database": "helpi_helpers_framework_db"
     },
     "moduledatabase": {
