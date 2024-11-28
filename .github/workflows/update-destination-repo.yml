@@ -1,4 +1,4 @@
-name: Sync Specific Files to Destination Repo
+name: Sync Demo File to Destination Repo
 
 on:
   push:
@@ -6,32 +6,31 @@ on:
       - main  # Trigger the workflow on push to the main branch
 
 jobs:
-  sync-files:
+  sync-demo-file:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the Source Repository
+      # Step 1: Checkout the Source Repository (krishna)
       - name: Checkout Source Repository
         uses: actions/checkout@v3
 
-      # Step 2: Clone the Destination Repository
+      # Step 2: Clone the Destination Repository (dump-krishna)
       - name: Clone Destination Repository
         run: |
-          git clone https://<your-username>:${{ secrets.DEST_REPO_TOKEN }}@github.com/<destination-owner>/<destination-repo>.git destination_repo
+          git clone https://github.com/krishnasugarinc/dump-krishna.git destination_repo
           cd destination_repo
-          git config user.name "<your-username>"
-          git config user.email "<your-email>"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      # Step 3: Copy Specific Files
-      - name: Copy Specific Files
+      # Step 3: Copy the demo File
+      - name: Copy Demo File
         run: |
-          cp path/to/file1 destination_repo/path/to/file1
-          cp path/to/file2 destination_repo/path/to/file2
+          cp demo destination_repo/demo
 
       # Step 4: Commit and Push Changes
       - name: Commit and Push Changes
         run: |
           cd destination_repo
-          git add .
-          git commit -m "Sync specific files from source repository"
+          git add demo
+          git commit -m "Sync demo file from krishna repo"
           git push origin main
