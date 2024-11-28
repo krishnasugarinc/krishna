@@ -17,7 +17,7 @@ jobs:
       # Step 2: Clone the Destination Repository (dump-krishna)
       - name: Clone Destination Repository
         run: |
-          git clone https://github.com/krishnasugarinc/dump-krishna.git destination_repo
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/krishnasugarinc/dump-krishna.git destination_repo
           cd destination_repo
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
