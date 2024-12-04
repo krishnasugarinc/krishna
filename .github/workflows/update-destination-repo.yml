@@ -24,9 +24,13 @@ jobs:
         run: |
           cp demo dump-krishna/demo
 
+      - name: Copy Krishna Demo File
+        run: |
+          cp krishna-demo dump-krishna/krishna-demo
+
       - name: Commit and Push Changes
         run: |
           cd dump-krishna
-          git add demo
-          git commit -m "Sync demo file from krishna repo"
+          git add demo krishna-demo
+          git commit -m "Sync demo and krishna-demo files from krishna repo"
           git push origin main
