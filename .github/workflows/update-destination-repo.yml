@@ -1,4 +1,4 @@
-name: Sync Demo File to Destination Repo
+name: Sync Demo File to Child Repos
 
 on:
   push:
@@ -6,54 +6,37 @@ on:
       - main
 
 jobs:
-  sync-demo-file:
+  sync-child-repos:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        repo:
+          - dump-krishna
+          - dump-krishna-1
 
     steps:
+      # Checkout the source repository
       - name: Checkout Source Repository
         uses: actions/checkout@v3
 
+      # Clone the destination repository (matrix handles both child repos)
       - name: Clone Destination Repository
         run: |
-          git clone https://krishnasugarinc:${{ secrets.PAT_TOKEN }}@github.com/krishnasugarinc/dump-krishna.git dump-krishna
-          cd dump-krishna
+          git clone https://krishnasugarinc:${{ secrets.PAT_TOKEN }}@github.com/krishnasugarinc/${{ matrix.repo }}.git
+          cd ${{ matrix.repo }}
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Copy Demo File
+      # Copy files to the destination repository
+      - name: Copy Files
         run: |
-          cp demo dump-krishna/demo
+          cp demo ${{ matrix.repo }}/demo
+          cp krishna-demo ${{ matrix.repo }}/krishna-demo
 
-      - name: Copy Krishna Demo File
-        run: |
-          cp krishna-demo dump-krishna/krishna-demo
-
+      # Commit and push changes
       - name: Commit and Push Changes
         run: |
-          cd dump-krishna
-          git add demo krishna-demo
-          git commit -m "Sync demo and krishna-demo files from krishna repo"
-          git push origin main
-
-          
-      - name: Clone Destination Repository
-        run: |
-          git clone https://krishnasugarinc:${{ secrets.PAT_TOKEN }}@github.com/krishnasugarinc/dump-krishna-1.git dump-krishna-1
-          cd dump-krishna-1
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Copy Demo File
-        run: |
-          cp demo dump-krishna-1/demo
-
-      - name: Copy Krishna Demo File
-        run: |
-          cp krishna-demo dump-krishna-1/krishna-demo
-
-      - name: Commit and Push Changes
-        run: |
-          cd dump-krishna-1
+          cd ${{ matrix.repo }}
           git add demo krishna-demo
           git commit -m "Sync demo and krishna-demo files from krishna repo"
           git push origin main
