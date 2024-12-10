@@ -13,6 +13,7 @@ jobs:
         repo:
           - dump-krishna
           - dump-krishna-1
+          - dump-krishna-2
 
     steps:
       # Checkout the source repository
