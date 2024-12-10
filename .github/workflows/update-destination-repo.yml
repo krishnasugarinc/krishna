@@ -34,3 +34,26 @@ jobs:
           git add demo krishna-demo
           git commit -m "Sync demo and krishna-demo files from krishna repo"
           git push origin main
+
+          
+      - name: Clone Destination Repository
+        run: |
+          git clone https://krishnasugarinc:${{ secrets.PAT_TOKEN }}@github.com/krishnasugarinc/dump-krishna-1.git dump-krishna-1
+          cd dump-krishna-1
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Copy Demo File
+        run: |
+          cp demo dump-krishna-1/demo
+
+      - name: Copy Krishna Demo File
+        run: |
+          cp krishna-demo dump-krishna-1/krishna-demo
+
+      - name: Commit and Push Changes
+        run: |
+          cd dump-krishna-1
+          git add demo krishna-demo
+          git commit -m "Sync demo and krishna-demo files from krishna repo"
+          git push origin main
