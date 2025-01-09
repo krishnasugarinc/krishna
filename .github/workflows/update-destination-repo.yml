@@ -12,8 +12,6 @@ jobs:
       matrix:
         repo:
           - dump-krishna
-          - dump-krishna-1
-          - dump-krishna-2
 
     steps:
       # Checkout the source repository
@@ -31,7 +29,7 @@ jobs:
       # Copy files to the destination repository
       - name: Copy Files
         run: |
-          cp demo ${{ matrix.repo }}/demo
+          cp demo ${{ matrix.repo }}/new
           cp krishna-demo ${{ matrix.repo }}/krishna-demo
 
       # Commit and push changes
