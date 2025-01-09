@@ -1,4 +1,4 @@
-name: Sync Demo File to Child Repos
+name: Sync All Files and Folders to Child Repos
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
       - name: Checkout Source Repository
         uses: actions/checkout@v3
 
-      # Clone the destination repository (matrix handles both child repos)
+      # Clone the destination repository
       - name: Clone Destination Repository
         run: |
           git clone https://krishnasugarinc:${{ secrets.PAT_TOKEN }}@github.com/krishnasugarinc/${{ matrix.repo }}.git
@@ -26,15 +26,15 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      # Copy files to the destination repository
+      # Sync all files and folders from the source repository to the destination repository
       - name: Sync Files and Folders
         run: |
-          rsync -av --exclude '.git' --exclude '.github' krishna/ ${{ matrix.repo }}/
+          rsync -av --exclude '.git' --exclude '.github' ./ ${{ matrix.repo }}/
 
-      # Commit and push changes
+      # Commit and push changes to the destination repository
       - name: Commit and Push Changes
         run: |
           cd ${{ matrix.repo }}
-          git add new krishna-demo
-          git commit -m "Sync demo and krishna-demo files from krishna repo"
+          git add .
+          git commit -m "Sync all files and folders from krishna repo"
           git push origin main
