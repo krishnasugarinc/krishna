@@ -29,7 +29,7 @@ jobs:
       # Copy files to the destination repository
       - name: Sync Files and Folders
         run: |
-          rsync -av --exclude '.git' --exclude '.github' ./ ${{ matrix.repo }}/
+          rsync -av --exclude '.git' --exclude '.github' krishna/ ${{ matrix.repo }}/
 
       # Commit and push changes
       - name: Commit and Push Changes
