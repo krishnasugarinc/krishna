@@ -27,10 +27,9 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       # Copy files to the destination repository
-      - name: Copy Files
+      - name: Sync Files and Folders
         run: |
-          cp demo ${{ matrix.repo }}/new
-          cp krishna-demo ${{ matrix.repo }}/krishna-demo
+          rsync -av --exclude '.git' --exclude '.github' ./ ${{ matrix.repo }}/
 
       # Commit and push changes
       - name: Commit and Push Changes
