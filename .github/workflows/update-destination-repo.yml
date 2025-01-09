@@ -36,6 +36,6 @@ jobs:
       - name: Commit and Push Changes
         run: |
           cd ${{ matrix.repo }}
-          git add demo krishna-demo
+          git add new krishna-demo
           git commit -m "Sync demo and krishna-demo files from krishna repo"
           git push origin main
